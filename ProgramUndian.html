@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Program Undian</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="col-md-12">
+            <h3>Program Undian</h3>
+            <h4 style="font-size: 12px; color: red;">By : Iman Ramadhan</h4>
+        </div>
+        <div class="col-md-12">
+            <div id="form_undian" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Peserta Auto (Range)</label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div class="input-group">
+                            <input type="number" name="peserta_range">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div class="input-group">
+                            <button id="generate" type="button" class="btn btn-primary">Generate</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Peserta Manual</label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div class="input-group">
+                            <textarea name="peserta" rows="5" cols="50"></textarea>
+                        </div>
+                        <div class="help-block">
+                            <font style="font-size: 12px; color: red;">
+                  *Pisahkan peserta dengan koma (,).
+                 </font>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div class="input-group">
+                            <button id="simpan_peserta" type="button" class="btn btn-primary">Simpan Peserta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div id="form_undian" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Peserta Awal</label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div id="peserta_awal" class="input-group">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Peserta Sekarang</label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div id="peserta_sekarang" class="input-group">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <table class="table" border="0" width="600px">
+                        <tr>
+                            <th>Mesin Acak</th>
+                            <th>Selamat!!!</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="animasi_undi" class="input-group .angka">
+                                </div>
+                            </td>
+                            <td>
+                                <div id="selamat" class="input-group .angka">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <button id="mulai_undi" type="button" class="btn btn-warning">Mulai Undi</button>
+                        <button id="pilih_peserta" type="button" class="btn btn-success" style="display: none;">Pilih Peserta</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Peserta Terpilih</label>
+                    <div class="col-md-6  inputGroupContainer">
+                        <div id="peserta_terpilih" class="input-group">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style type="text/css">
+            td {
+                font-size: 75px;
+                font-family: comingsan;
+                font-weight: bold;
+                min-width: 643px;
+            }
+            
+            #peserta_awal,
+            #peserta_sekarang {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            
+            .btn-success {
+                background-color: #007b43;
+                border-color: #006235;
+            }
+            
+            .btn-success {
+                background-color: #00a65a;
+                border-color: #008d4c;
+            }
+            
+            .btn-success {
+                color: #fff;
+                background-color: #5cb85c;
+                border-color: #4cae4c;
+            }
+            
+            .btn-primary {
+                background-color: #2e6c91;
+                border-color: #286080;
+            }
+            
+            .btn-primary {
+                background-color: #3c8dbc;
+                border-color: #367fa9;
+            }
+            
+            .btn-primary {
+                color: #fff;
+                background-color: #337ab7;
+                border-color: #2e6da4;
+            }
+            
+            .btn-warning:hover,
+            .btn-warning:active,
+            .btn-warning.hover {
+                background-color: #b57209;
+            }
+            
+            .btn-warning:hover,
+            .btn-warning:active,
+            .btn-warning.hover {
+                background-color: #e08e0b;
+            }
+            
+            .btn-warning:hover {
+                color: #fff;
+                background-color: #ec971f;
+                border-color: #d58512;
+            }
+            
+            .btn.focus,
+            .btn:focus,
+            .btn:hover {
+                color: #333;
+                text-decoration: none;
+            }
+            
+            .btn-warning {
+                background-color: #c8800e;
+                border-color: #b57209;
+            }
+            
+            .btn-warning {
+                background-color: #f39c12;
+                border-color: #e08e0b;
+            }
+            
+            .btn {
+                border-radius: 3px;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                border: 1px solid transparent;
+                border-top-color: transparent;
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                border-left-color: transparent;
+            }
+            
+            .btn-warning {
+                color: #fff;
+                background-color: #f0ad4e;
+                border-color: #eea236;
+            }
+            
+            .btn {
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+        </style>
+        <script type="text/javascript">
+            sessionStorage.clear(); //clear session js sebelumnya saat reload
+
+            var status = false;
+            var peserta_terpilih = [];
+            var peserta_sekarang = [];
+            var peserta_acak = [];
+
+            $(document).on('click', '#generate', function() {
+
+                if ($('[name="peserta_range"]').val() == "" || $('[name="peserta_range"]').val() < 1) {
+                    alert("Isi peserta terlebih dahulu! (mnimal 1 orang)");
+                    return false;
+                }
+
+                var peserta_range = $('[name="peserta_range"]').val();
+
+                var peserta_generate = "";
+                for (var i = 1; i <= peserta_range; i++) {
+                    peserta_generate = peserta_generate + '' + i + ',';
+                }
+                peserta_generate = peserta_generate.substr(0, peserta_generate.length - 1);
+
+                $('#form_undian textarea[name="peserta"]').val(peserta_generate);
+
+                $('#simpan_peserta').click();
+
+            });
+
+            $(document).on('click', '#simpan_peserta', function() {
+
+                status = false;
+                peserta_terpilih = [];
+                peserta_sekarang = [];
+                peserta_acak = [];
+
+                var peserta = $('#form_undian textarea[name="peserta"]').val();
+                $('#peserta_awal').html(peserta);
+
+                if (peserta == "") {
+                    alert("Isi peserta terlebih dahulu!");
+                    return false;
+                }
+
+                $('#form_undian textarea[name="peserta"]').val("");
+
+                peserta = peserta.split(' ').join(''); //escape string
+
+                peserta = peserta.split(',');
+
+                var peserta_awal = "";
+
+                peserta_sekarang = peserta;
+
+                $('#selamat').html('');
+                $('#peserta_terpilih').html('');
+                $('#pilih_peserta').hide();
+                $('#mulai_undi').show();
+            });
+
+            $(document).on('click', '#mulai_undi', function() {
+
+                if (peserta_sekarang.length == 0) {
+                    alert("Isi peserta terlebih dahulu!");
+                    return false;
+                } else {
+                    $('#mulai_undi').hide();
+                    $('#pilih_peserta').show();
+
+                    status = true;
+
+                    peserta_acak = shuffle(peserta_sekarang);
+                }
+            });
+
+            setInterval(function() {
+                run_acak();
+            }, 100);
+
+            index = 0;
+
+            function run_acak() {
+                if (peserta_acak.length != 0) {
+                    $('#animasi_undi').html(peserta_acak[index]);
+                    index++;
+                    if (index == peserta_acak.length) {
+                        index = 0;
+                    }
+                } else {
+                    $('#animasi_undi').html("Peserta Habis!");
+                }
+            }
+
+            $(document).on('click', '#pilih_peserta', function() {
+
+                status = false;
+
+                if (peserta_acak.length != 0) {
+                    $('#selamat').html(peserta_acak[index]);
+
+                    peserta_terpilih.push(peserta_acak[index]);
+
+                    peserta_acak.splice(index, 1);
+
+                    $('#peserta_sekarang').html(peserta_acak.join(','));
+                    var ps = $('#peserta_sekarang').html().split(',').sort().join(',');
+                    $('#peserta_sekarang').html(ps);
+
+                    peserta_acak = shuffle(peserta_acak);
+
+                    index--;
+
+                    if (peserta_acak.length == 0) {
+                        $('#pilih_peserta').hide();
+                        $('#mulai_undi').show();
+                    }
+                } else {
+                    alert("Peserta telah habis!");
+                }
+                var list_data = "<ol>";
+                for (var i = 0; i < peserta_terpilih.length; i++) {
+                    list_data = list_data + "<li>" + peserta_terpilih[i] + "</li>";
+                }
+                list_data = list_data + "</ol>";
+                $('#peserta_terpilih').html(list_data);
+            });
+
+            function shuffle(arra1) {
+                var ctr = arra1.length,
+                    temp, index;
+                while (ctr > 0) {
+                    index = Math.floor(Math.random() * ctr);
+                    ctr--;
+                    temp = arra1[ctr];
+                    arra1[ctr] = arra1[index];
+                    arra1[index] = temp;
+                }
+                return arra1;
+            }
+        </script>
+    </body>
+</html>
